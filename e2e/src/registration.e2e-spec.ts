@@ -205,4 +205,20 @@ describe('Registration Page', () => {
     expect(message.getText()).toEqual('Duplicate player');
   });
 
+  it('should print registered users in message field', () => {
+    browser.get('/registration');
+
+    var input = ["John", "Jerry", "Sally", "Wally", "Susan", "Timothy", "Bob", "Greg"]
+
+    for (var i = 0; i < input.length; i++) {
+      var contestant = element(by.id('contestant' + i));
+      contestant.sendKeys(input[i]);
+    }
+
+    element(by.id('registerBtn')).click();
+    var message = element(by.id('message'));
+
+    expect(message.getText()).toEqual('John,Jerry,Sally,Wally,Susan,Timothy,Bob,Greg');
+  });
+
 });
