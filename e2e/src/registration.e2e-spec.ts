@@ -217,6 +217,23 @@ describe('Registration Page', () => {
     }
   });
 
+  it('user can have registered players but still type in new players', () => {
+    browser.get('/registration');
 
+    element(by.id('autofill-eight')).click();
+    element(by.id('registerBtn')).click();
 
+    var message = element(by.id('message'));
+
+    expect(message.getText()).toEqual('Leia,Luke,Lando,Han,Chewy,R2D2,C3P0,Vader');
+
+    var input = ["John", "Jerry", "Sally", "Wally", "Susan", "Timothy", "Bob", "Greg"]
+
+    for (var i = 0; i <= 7; i++) {
+      var contestant = element(by.id('contestant' + i));
+      contestant.sendKeys(input[i]);
+      expect(contestant.getAttribute('value')).toEqual(input[i]);
+    }
+
+  });
 });
