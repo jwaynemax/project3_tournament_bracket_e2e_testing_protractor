@@ -189,4 +189,20 @@ describe('Registration Page', () => {
     expect(message.getText()).toEqual('Should be 2, 4, or 8 contestants');
   });
 
+  it('should throw error message w/ duplicate contestants', () => {
+    browser.get('/registration');
+
+    var input = ["John", "John"]
+
+    for (var i = 0; i < input.length; i++) {
+      var contestant = element(by.id('contestant' + i));
+      contestant.sendKeys(input[i]);
+    }
+
+    element(by.id('registerBtn')).click();
+    var message = element(by.id('message'));
+
+    expect(message.getText()).toEqual('Duplicate player');
+  });
+
 });
