@@ -112,8 +112,71 @@ describe('Registration Page', () => {
   it('should throw error message w/ 1 registered contestant', () => {
     browser.get('/registration');
 
-    //var input = ["John", "Jerry", "Sally", "Wally", "Susan", "Timothy", "Bob", "Brenda"]
     var input = ["John"]
+
+    for (var i = 0; i < input.length; i++) {
+      var contestant = element(by.id('contestant' + i));
+      contestant.sendKeys(input[i]);
+    }
+
+    element(by.id('registerBtn')).click();
+    var message = element(by.id('message'));
+
+    expect(message.getText()).toEqual('Should be 2, 4, or 8 contestants');
+  });
+
+  it('should throw error message w/ 3 registered contestants', () => {
+    browser.get('/registration');
+
+    var input = ["John", "Jerry", "Sally"]
+
+    for (var i = 0; i < input.length; i++) {
+      var contestant = element(by.id('contestant' + i));
+      contestant.sendKeys(input[i]);
+    }
+
+    element(by.id('registerBtn')).click();
+    var message = element(by.id('message'));
+
+    expect(message.getText()).toEqual('Should be 2, 4, or 8 contestants');
+  });
+
+  it('should throw error message w/ 5 registered contestants', () => {
+    browser.get('/registration');
+
+    var input = ["John", "Jerry", "Sally", "Wally", "Susan"]
+
+    for (var i = 0; i < input.length; i++) {
+      var contestant = element(by.id('contestant' + i));
+      contestant.sendKeys(input[i]);
+    }
+
+    element(by.id('registerBtn')).click();
+    var message = element(by.id('message'));
+
+    expect(message.getText()).toEqual('Should be 2, 4, or 8 contestants');
+  });
+
+  it('should throw error message w/ 6 registered contestants', () => {
+    browser.get('/registration');
+
+    var input = ["John", "Jerry", "Sally", "Wally", "Susan", "Timothy"]
+
+    for (var i = 0; i < input.length; i++) {
+      var contestant = element(by.id('contestant' + i));
+      contestant.sendKeys(input[i]);
+    }
+
+    element(by.id('registerBtn')).click();
+    var message = element(by.id('message'));
+
+    expect(message.getText()).toEqual('Should be 2, 4, or 8 contestants');
+  });
+
+  it('should throw error message w/ 7 registered contestants', () => {
+    browser.get('/registration');
+
+    var input = ["John", "Jerry", "Sally", "Wally", "Susan", "Timothy", "Bob"]
 
     for (var i = 0; i < input.length; i++) {
       var contestant = element(by.id('contestant' + i));
