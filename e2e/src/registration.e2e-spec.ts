@@ -217,7 +217,7 @@ describe('Registration Page', () => {
     }
   });
 
-  it('user can have registered players but still type in new players', () => {
+  it('when user navigates away from registration page, contestants still persist on brackets', () => {
     browser.get('/registration');
 
     element(by.id('autofill-eight')).click();
@@ -227,13 +227,23 @@ describe('Registration Page', () => {
 
     expect(message.getText()).toEqual('Leia,Luke,Lando,Han,Chewy,R2D2,C3P0,Vader');
 
-    var input = ["John", "Jerry", "Sally", "Wally", "Susan", "Timothy", "Bob", "Greg"]
+    browser.get('/brackets');
 
-    for (var i = 0; i <= 7; i++) {
-      var contestant = element(by.id('contestant' + i));
-      contestant.sendKeys(input[i]);
-      expect(contestant.getAttribute('value')).toEqual(input[i]);
-    }
+    var radioPlayer = element(by.id('m.id'));
+
+    expect(radioPlayer.getText()).toEqual('Leia');
+
+    // browser.get('/registration');
+    //
+    //
+    //
+    // var input = ["John", "Jerry", "Sally", "Wally", "Susan", "Timothy", "Bob", "Greg"]
+    //
+    // for (var i = 0; i <= 7; i++) {
+    //   var contestant = element(by.id('contestant' + i));
+    //   contestant.sendKeys(input[i]);
+    //   expect(contestant.getAttribute('value')).toEqual(input[i]);
+    // }
 
   });
 });
