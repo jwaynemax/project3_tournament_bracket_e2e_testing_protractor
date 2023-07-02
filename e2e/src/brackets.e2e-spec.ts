@@ -161,7 +161,7 @@ describe('Brackets Page', () => {
   it('2 registered players should have 1 match', () => {
     browser.get('/registration');
 
-    element(by.id('autofill-four')).click();
+    element(by.id('autofill-two')).click();
     element(by.id('registerBtn')).click();
     element(by.id('brackets')).click();
 
@@ -173,7 +173,7 @@ describe('Brackets Page', () => {
   it('2 registered players should have 1 round', () => {
     browser.get('/registration');
 
-    element(by.id('autofill-four')).click();
+    element(by.id('autofill-two')).click();
     element(by.id('registerBtn')).click();
     element(by.id('brackets')).click();
 
@@ -188,6 +188,114 @@ describe('Brackets Page', () => {
 
     expect(round.getText()).toEqual('Round: 1');
 
+  });
+
+  it('should display winner', () => {
+    browser.get('/registration');
+
+    element(by.id('autofill-two')).click();
+    element(by.id('registerBtn')).click();
+    element(by.id('brackets')).click();
+
+    var round = element(by.id('round'));
+
+    expect(round.getText()).toEqual('Round: 1');
+
+    var radioPlayer1 = element(by.id('player1-0'));
+    radioPlayer1.click();
+
+    element(by.id('complete-round')).click();
+    var winner = element(by.id('winner'));
+
+    expect(round.getText()).toEqual('Round: 1');
+    expect(winner.getText()).toEqual('Winner: Zoe');
+
+  });
+
+  it('should load w/ no matches when there are no registered contestants', () => {
+    browser.get('/brackets');
+
+    var round = element(by.id('round'));
+    var match = element(by.id('match-0'));
+
+    expect(round.getText()).toEqual('Round: 1');
+    expect(match.isPresent()).toBeFalsy();
+  });
+
+  it('should have 8 registered contestants that match registration page', () => {
+    browser.get('/registration');
+
+    element(by.id('autofill-eight')).click();
+    element(by.id('registerBtn')).click();
+
+    var message = element(by.id('message'));
+
+    expect(message.getText()).toEqual('Leia,Luke,Lando,Han,Chewy,R2D2,C3P0,Vader');
+
+    element(by.id('brackets')).click();
+
+    var radioPlayer1 = element(by.id('player1-0'));
+    var radioPlayer2 = element(by.id('player2-0'));
+    var radioPlayer3 = element(by.id('player1-1'));
+    var radioPlayer4 = element(by.id('player2-1'));
+    var radioPlayer5 = element(by.id('player1-2'));
+    var radioPlayer6 = element(by.id('player2-2'));
+    var radioPlayer7 = element(by.id('player1-3'));
+    var radioPlayer8 = element(by.id('player2-3'));
+
+
+    expect(radioPlayer1.getAttribute('value')).toEqual('Leia');
+    expect(radioPlayer2.getAttribute('value')).toEqual('Luke');
+    expect(radioPlayer3.getAttribute('value')).toEqual('Lando');
+    expect(radioPlayer4.getAttribute('value')).toEqual('Han');
+    expect(radioPlayer5.getAttribute('value')).toEqual('Chewy');
+    expect(radioPlayer6.getAttribute('value')).toEqual('R2D2');
+    expect(radioPlayer7.getAttribute('value')).toEqual('C3P0');
+    expect(radioPlayer8.getAttribute('value')).toEqual('Vader');
+
+  });
+
+  it('should have 4 registered contestants that match registration page', () => {
+    browser.get('/registration');
+
+    element(by.id('autofill-four')).click();
+    element(by.id('registerBtn')).click();
+
+    var message = element(by.id('message'));
+
+    expect(message.getText()).toEqual('John,Paul,George,Ringo');
+
+    element(by.id('brackets')).click();
+
+    var radioPlayer1 = element(by.id('player1-0'));
+    var radioPlayer2 = element(by.id('player2-0'));
+    var radioPlayer3 = element(by.id('player1-1'));
+    var radioPlayer4 = element(by.id('player2-1'));
+
+    expect(radioPlayer1.getAttribute('value')).toEqual('John');
+    expect(radioPlayer2.getAttribute('value')).toEqual('Paul');
+    expect(radioPlayer3.getAttribute('value')).toEqual('George');
+    expect(radioPlayer4.getAttribute('value')).toEqual('Ringo');
+
+  });
+
+  it('should have 2 registered contestants that match registration page', () => {
+    browser.get('/registration');
+
+    element(by.id('autofill-two')).click();
+    element(by.id('registerBtn')).click();
+
+    var message = element(by.id('message'));
+
+    expect(message.getText()).toEqual('Zoe,Kaylee');
+
+    element(by.id('brackets')).click();
+
+    var radioPlayer1 = element(by.id('player1-0'));
+    var radioPlayer2 = element(by.id('player2-0'));
+
+    expect(radioPlayer1.getAttribute('value')).toEqual('Zoe');
+    expect(radioPlayer2.getAttribute('value')).toEqual('Kaylee');
   });
 
 });
