@@ -1,21 +1,24 @@
 import { browser, by, element } from 'protractor';
+import { Routing } from '../../src/app/models/routing';
 
-describe('Welcome page', () => {
+const welcomeRoute = new Routing();
 
-  it('should check that h2 element equals Brackets App', () => {
-    browser.get('/');
+describe('Routing', () => {
+
+  beforeEach(function() {
+    welcomeRoute.getWelcome();
+  });
+
+
+  it('Welcome page should check that h2 element equals Brackets App', () => {
 
     var title = element(by.id('subpageTitle'));
 
     expect(title.getText()).toEqual('Brackets App');
 
   });
-});
 
-describe('Registration page', () => {
-
-  it('should check that h2 element equals Register Players', () => {
-    browser.get('/');
+  it('Registration page should check that h2 element equals Register Players', () => {
 
     var registration = element(by.id('registration')).click();
     var title = element(by.id('registration-title'));
@@ -23,12 +26,8 @@ describe('Registration page', () => {
     expect(title.getText()).toEqual('Register Players');
 
   });
-});
 
-describe('Brackets page', () => {
-
-  it('should check that h2 element equals Brackets', () => {
-    browser.get('/');
+  it('Brackets page should check that h2 element equals Brackets', () => {
 
     var registration = element(by.id('brackets')).click();
     var title = element(by.id('subpageTitle'));
@@ -38,10 +37,10 @@ describe('Brackets page', () => {
   });
 });
 
-describe('User', () => {
+describe('Routing from Brackets', () => {
 
-  it('should be able to navigate back to the Welcome page from /brackets', () => {
-    browser.get('/brackets');
+  it('should navigate back to the Welcome page from /brackets', () => {
+    welcomeRoute.getBrackets();
 
     var registration = element(by.id('hello')).click();
     var title = element(by.id('subpageTitle'));
