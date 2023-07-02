@@ -13,9 +13,9 @@ export class BracketsComponent implements OnInit {
   private champion: string;
   public roundId: number = 1;
   public message: string;
-  
+
   constructor(private rosterService: RosterService) {}
-  
+
   private seedBracket(players: string[]) {
     let matchId = 1;
     for (var i=0; i < players.length; i+=2) {
@@ -36,13 +36,13 @@ export class BracketsComponent implements OnInit {
     }
     return false;
   }
-  
+
   public completeRound() {
     this.message = undefined;
     if (this.hasIncompleteMatches()) {
       this.message = 'Please complete all matches';
       return;
-    } 
+    }
     let nextRoundsPlayers: string[] = [];
     this.seeds.forEach((m) => {
       nextRoundsPlayers.push(m.getWinner());
@@ -55,11 +55,11 @@ export class BracketsComponent implements OnInit {
     this.seedBracket(nextRoundsPlayers);
     this.roundId++;
   }
-  
+
   getChampion(): string {
     return this.champion;
   }
-  
+
   ngOnInit() {
     this.seedBracket(this.rosterService.getContestants());
   }

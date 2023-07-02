@@ -227,23 +227,19 @@ describe('Registration Page', () => {
 
     expect(message.getText()).toEqual('Leia,Luke,Lando,Han,Chewy,R2D2,C3P0,Vader');
 
-    browser.get('/brackets');
+    element(by.id('brackets')).click();
 
-    var radioPlayer = element(by.id('m.id'));
+    var radioPlayer = element(by.id('player1-0'));
+    expect(radioPlayer.getAttribute('value')).toEqual('Leia');
 
-    expect(radioPlayer.getText()).toEqual('Leia');
+    element(by.id('registration')).click();
 
-    // browser.get('/registration');
-    //
-    //
-    //
-    // var input = ["John", "Jerry", "Sally", "Wally", "Susan", "Timothy", "Bob", "Greg"]
-    //
-    // for (var i = 0; i <= 7; i++) {
-    //   var contestant = element(by.id('contestant' + i));
-    //   contestant.sendKeys(input[i]);
-    //   expect(contestant.getAttribute('value')).toEqual(input[i]);
-    // }
+    expect(message.getText()).toEqual('');
+
+    element(by.id('brackets')).click();
+
+    var radioPlayer = element(by.id('player1-0'));
+    expect(radioPlayer.getAttribute('value')).toEqual('Leia');
 
   });
 });
