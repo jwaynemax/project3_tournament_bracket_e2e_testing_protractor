@@ -1,20 +1,17 @@
 import { browser, by, element } from 'protractor';
 import { Routing } from '../../src/app/models/routing';
 
-const getBrackets = new Routing();
+const registrationRoute = new Routing();
+const bracketsRoute = new Routing();
 
-describe('Brackets Page', () => {
 
-  it('header should be 8-Player Tournament Bracket!', () => {
-    browser.get('/brackets');
+describe('Brackets Page w/ registering contestants', () => {
 
-    var title = element(by.id('header-title'));
-
-    expect(title.getText()).toEqual('8-Player Tournament Bracket!');
+  beforeEach(function() {
+    registrationRoute.getRegistration();
   });
 
   it('should complete the round when "Complete Round" clicked', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-eight')).click();
     element(by.id('registerBtn')).click();
@@ -37,7 +34,6 @@ describe('Brackets Page', () => {
   });
 
   it('should throw error when radio button is not selected', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-eight')).click();
     element(by.id('registerBtn')).click();
@@ -61,7 +57,6 @@ describe('Brackets Page', () => {
   });
 
   it('8 registered players should have 4 matches', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-eight')).click();
     element(by.id('registerBtn')).click();
@@ -79,7 +74,6 @@ describe('Brackets Page', () => {
   });
 
   it('8 registered players should have 3 rounds', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-eight')).click();
     element(by.id('registerBtn')).click();
@@ -119,7 +113,6 @@ describe('Brackets Page', () => {
   });
 
   it('4 registered players should have 2 matches', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-four')).click();
     element(by.id('registerBtn')).click();
@@ -133,7 +126,6 @@ describe('Brackets Page', () => {
   });
 
   it('4 registered players should have 2 rounds', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-four')).click();
     element(by.id('registerBtn')).click();
@@ -162,7 +154,6 @@ describe('Brackets Page', () => {
   });
 
   it('2 registered players should have 1 match', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-two')).click();
     element(by.id('registerBtn')).click();
@@ -174,7 +165,6 @@ describe('Brackets Page', () => {
   });
 
   it('2 registered players should have 1 round', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-two')).click();
     element(by.id('registerBtn')).click();
@@ -194,7 +184,6 @@ describe('Brackets Page', () => {
   });
 
   it('should display winner', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-two')).click();
     element(by.id('registerBtn')).click();
@@ -215,18 +204,7 @@ describe('Brackets Page', () => {
 
   });
 
-  it('should load w/ no matches when there are no registered contestants', () => {
-    browser.get('/brackets');
-
-    var round = element(by.id('round'));
-    var match = element(by.id('match-0'));
-
-    expect(round.getText()).toEqual('Round: 1');
-    expect(match.isPresent()).toBeFalsy();
-  });
-
   it('should have 8 registered contestants that match registration page', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-eight')).click();
     element(by.id('registerBtn')).click();
@@ -259,7 +237,6 @@ describe('Brackets Page', () => {
   });
 
   it('should have 4 registered contestants that match registration page', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-four')).click();
     element(by.id('registerBtn')).click();
@@ -283,7 +260,6 @@ describe('Brackets Page', () => {
   });
 
   it('should have 2 registered contestants that match registration page', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-two')).click();
     element(by.id('registerBtn')).click();
@@ -301,4 +277,26 @@ describe('Brackets Page', () => {
     expect(radioPlayer2.getAttribute('value')).toEqual('Kaylee');
   });
 
+});
+
+describe('Brackets Page w/o registering contestants', () => {
+
+  beforeEach(function() {
+    bracketsRoute.getBrackets();
+  });
+  it('should load w/ no matches when there are no registered contestants', () => {
+
+    var round = element(by.id('round'));
+    var match = element(by.id('match-0'));
+
+    expect(round.getText()).toEqual('Round: 1');
+    expect(match.isPresent()).toBeFalsy();
+  });
+
+  it('header should be 8-Player Tournament Bracket!', () => {
+
+    var title = element(by.id('header-title'));
+
+    expect(title.getText()).toEqual('8-Player Tournament Bracket!');
+  });
 });
