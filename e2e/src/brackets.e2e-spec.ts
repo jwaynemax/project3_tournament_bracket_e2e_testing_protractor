@@ -1,4 +1,7 @@
 import { browser, by, element } from 'protractor';
+import { Routing } from '../../src/app/models/routing';
+
+const getBrackets = new Routing();
 
 describe('Brackets Page', () => {
 

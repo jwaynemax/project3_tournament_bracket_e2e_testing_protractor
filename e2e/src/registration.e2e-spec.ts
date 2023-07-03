@@ -1,17 +1,21 @@
 import { browser, by, element } from 'protractor';
+import { Routing } from '../../src/app/models/routing';
+
+const registrationRoute = new Routing();
 
 describe('Registration Page', () => {
 
-  it('header should be 8-Player Tournament Bracket!', () => {
-    browser.get('/registration');
+  beforeEach(function() {
+    registrationRoute.getRegistration();
+  });
 
+  it('header should be 8-Player Tournament Bracket!', () => {
     var title = element(by.id('header-title'));
 
     expect(title.getText()).toEqual('8-Player Tournament Bracket!');
   });
 
   it('user should be able to type text into each field', () => {
-    browser.get('/registration');
 
     for (var i = 0; i <= 7; i++) {
       var contestant = element(by.id('contestant' + i));
@@ -21,7 +25,6 @@ describe('Registration Page', () => {
   });
 
   it('Register Contestants btn should register contestants', () => {
-    browser.get('/registration');
 
     var input = ["John", "Jerry", "Sally", "Wally", "Susan", "Timothy", "Bob", "Brenda"]
 
@@ -37,7 +40,6 @@ describe('Registration Page', () => {
   });
 
   it('Autofill 2 Players btn should register 2 contestants', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-two')).click();
 
@@ -53,7 +55,6 @@ describe('Registration Page', () => {
   });
 
   it('Autofill 4 Players btn should register 4 contestants', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-four')).click();
 
@@ -73,7 +74,6 @@ describe('Registration Page', () => {
   });
 
   it('Autofill 8 Players btn should register 8 contestants', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-eight')).click();
 
@@ -101,7 +101,6 @@ describe('Registration Page', () => {
   });
 
   it('should throw error message w/ no registered contestants', () => {
-    browser.get('/registration');
 
     element(by.id('registerBtn')).click();
     var message = element(by.id('message'));
@@ -110,7 +109,6 @@ describe('Registration Page', () => {
   });
 
   it('should throw error message w/ 1 registered contestant', () => {
-    browser.get('/registration');
 
     var input = ["John"]
 
@@ -126,7 +124,6 @@ describe('Registration Page', () => {
   });
 
   it('should throw error message w/ 3 registered contestants', () => {
-    browser.get('/registration');
 
     var input = ["John", "Jerry", "Sally"]
 
@@ -142,7 +139,6 @@ describe('Registration Page', () => {
   });
 
   it('should throw error message w/ 5 registered contestants', () => {
-    browser.get('/registration');
 
     var input = ["John", "Jerry", "Sally", "Wally", "Susan"]
 
@@ -158,7 +154,6 @@ describe('Registration Page', () => {
   });
 
   it('should throw error message w/ 6 registered contestants', () => {
-    browser.get('/registration');
 
     var input = ["John", "Jerry", "Sally", "Wally", "Susan", "Timothy"]
 
@@ -174,7 +169,6 @@ describe('Registration Page', () => {
   });
 
   it('should throw error message w/ 7 registered contestants', () => {
-    browser.get('/registration');
 
     var input = ["John", "Jerry", "Sally", "Wally", "Susan", "Timothy", "Bob"]
 
@@ -190,7 +184,6 @@ describe('Registration Page', () => {
   });
 
   it('should throw error message w/ duplicate contestants', () => {
-    browser.get('/registration');
 
     var input = ["John", "John"]
 
@@ -206,7 +199,6 @@ describe('Registration Page', () => {
   });
 
   it('should always load with no contestants typed in', () => {
-    browser.get('/registration');
 
     var contestant = element(by.id('contestant0'));
 
@@ -218,7 +210,6 @@ describe('Registration Page', () => {
   });
 
   it('when user navigates away from registration page, contestants still persist on brackets', () => {
-    browser.get('/registration');
 
     element(by.id('autofill-eight')).click();
     element(by.id('registerBtn')).click();
